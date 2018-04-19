@@ -39,6 +39,12 @@ def merge(left, right):
   return result
 
 def merge_sort(arr):
+  """
+  Merge sort
+
+  Complexity: O(n * log(n))
+  where n = len(arr)
+  """
   n = len(arr)
   if n <= 1:
     return arr
