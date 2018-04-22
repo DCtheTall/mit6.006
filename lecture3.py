@@ -12,6 +12,22 @@ def insertion_sort(arr):
         arr[i - j - 1] = tmp
   return arr
 
+
+def insertion_sort2(L):
+  """
+  Slightly improved insertion sort
+
+  Complexity: O(n ** 2)
+  """
+  for i in range(len(L)):
+    key = L[i]
+    j = i - 1
+    while j > -1 and L[j] > key:
+      L[j + 1] = L[j]
+      j -= 1
+    L[j + 1] = key
+  return L
+
 # Merge sort
 # From: https://en.wikipedia.org/wiki/Merge_sort
 
@@ -22,39 +38,57 @@ def merge(left, right):
   Complexity: O(n + m)
   where n = len(left) and m = len(right)
   """
+  i = 0
+  j = 0
   result = []
-  while left and right:
-    if left[0] < right[0]:
-      result.append(left[0])
-      left = left[1:]
+  while i < len(left) and j < len(right):
+    if left[i] < right[j]:
+      result.append(left[i])
+      i += 1
     else:
-      result.append(right[0])
-      right = right[1:]
-  while left:
-    result.append(left[0])
-    left = left[1:]
-  while right:
-    result.append(right[0])
-    right = right[1:]
+      result.append(right[j])
+      j += 1
+  if i < len(left):
+    result.extend(left[i:])
+  if j < len(right):
+    result.extend(right[j:])
   return result
 
-def merge_sort(arr):
+def merge_sort(L):
   """
   Merge sort
 
   Complexity: O(n * log(n))
   where n = len(arr)
   """
-  n = len(arr)
-  if n <= 1:
-    return arr
-  left = []
-  right = []
-  for i, x in enumerate(arr):
-    if i < n / 2:
-      left.append(x)
-    else:
-      right.append(x)
-  left = merge_sort(left)
-  right = merge_sort(right)
+  n = len(L)
+  if n < 2:
+    return L
+  left = merge_sort(L[:n / 2])
+  right = merge_sort(L[n / 2:])
   return merge(left, right)
+
+"""
+Functional merge sort
+
+My own implementation of a pure functional merge sort
+that can be expressed solely with lambda expressions.
+I use `if` control flow to avoid writing ugly ternaries
+"""
+
+def func_merge(left, right):
+  if not left:
+    return right
+  if not right:
+    return left
+  if left[0] < right[0]:
+    return left[:1] + func_merge(left[1:], right)
+  return right[:1] + func_merge(left, right[1:])
+
+def func_merge_sort(L):
+  if len(L) < 2:
+    return L
+  return func_merge(
+    func_merge_sort(L[:len(L) / 2]),
+    func_merge_sort(L[len(L) / 2:]),
+  )

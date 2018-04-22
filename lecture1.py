@@ -56,9 +56,3 @@ def find2Dpeak(plane):
   if middle_max < plane[(n / 2) + 1][i]:
     return find2Dpeak(plane[:n / 2])
   return middle_max
-
-
-
-
-
-
