@@ -72,8 +72,14 @@ def merge_sort(L):
 Functional merge sort
 
 My own implementation of a pure functional merge sort
-that can be expressed solely with lambda expressions.
-I use `if` control flow to avoid writing ugly ternaries
+that can be expressed solely with lambda expressions
+(it can be shown the list operations I used can be
+expressed as functions). I use `if` control flow
+to avoid writing ugly ternaries.
+
+The above implementation is faster
+and runs less risk of stack overflow.
+This is more of an academic exercise.
 """
 
 def func_merge(left, right):
