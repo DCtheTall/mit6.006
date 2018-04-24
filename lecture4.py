@@ -9,9 +9,9 @@ def swap(arr, i, j):
   arr[j] = tmp
   return arr
 
-def max_heapify(arr, N, i):
+def max_heapify(arr, i, N):
   """
-  Max heapify a list arr from index N to index i
+  Max heapify a list arr from index N-1 to index i
 
   Complexity: O(log(N))
   One operation for each level of the tree deeper than the log(i)
@@ -25,7 +25,7 @@ def max_heapify(arr, N, i):
     largest = right
   if largest != i:
     swap(arr, i, largest)
-    max_heapify(arr, N, largest)
+    max_heapify(arr, largest, N)
 
 def build_max_heap(arr):
   """
@@ -39,10 +39,8 @@ def build_max_heap(arr):
   So num ops converges to 2^k * C where C is some constant
   So therefore num ops is propto n
   """
-  i = len(arr) / 2
-  while i > -1:
-    max_heapify(arr, len(arr), i)
-    i -= 1
+  for i in range(len(arr) / 2, -1, -1):
+    max_heapify(arr, i, len(arr))
   return arr
 
 def heap_sort(arr):
@@ -56,9 +54,7 @@ def heap_sort(arr):
     - max_heapify: O(log(N))
   """
   build_max_heap(arr)
-  N = len(arr)
-  while N > 0:
-    N -= 1
-    swap(arr, 0, N)
-    max_heapify(arr, N, 0)
+  for i in range(len(arr) - 1, 0, -1):
+    swap(arr, 0, i)
+    max_heapify(arr, 0, i)
   return arr
