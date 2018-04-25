@@ -51,7 +51,7 @@ def heap_sort(arr):
   build_max_heep is O(n)
   Then iterate over each element of arr:
     - Call swap: O(1)
-    - max_heapify: O(log(N))
+    - max_heapify: O(log(N)) for N in 1 to n
   """
   build_max_heap(arr)
   for i in range(len(arr) - 1, 0, -1):
