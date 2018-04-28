@@ -78,8 +78,7 @@ def fn_bst_delete(node, value):
     return left_child(node)
   return insert_left(
     set_value(node, valueof(left_child(node))),
-    fn_bst_delete(set_value(left_child(node), value), value),
-  )
+    fn_bst_delete(set_value(left_child(node), value), value))
 
 
 """

@@ -1,4 +1,83 @@
 """
+Functional AVL Tree
+
+Self balancing functional
+binary search tree
+"""
+
+from lecture5 import (
+  nil,
+  node,
+  valueof,
+  left_child,
+  right_child,
+  insert_left,
+  insert_right,
+  fn_bst_insert,
+  fn_bst_delete,
+)
+
+# Add two natural numbers (w/ 0)
+add = lambda x, y: y if x == 0 else add((x - 1), y)
+
+
+sub = lambda x, y: x if y == 0 else sub((x - 1), (y - 1))
+
+
+leq = lambda x, y: x <= y
+
+
+gt = lambda x, y: x > y
+
+
+height = lambda node: \
+  0 if node == nil \
+    else add(1, max(left_child(node), right_child(node))) # addition and max can be expressed as functions
+
+
+fn_rotate_left = lambda node: \
+  insert_left(
+    right_child(node),
+    insert_right(node, left_child(right_child(node))))
+
+
+fn_rotate_right = lambda node: \
+  insert_right(
+    left_child(node),
+    insert_left(
+      node,
+      right_child(left_child(node))))
+
+
+fn_avl_test = lambda node: \
+  leq(1,
+    sub(
+      height(left_child(node)),
+      height(right_child(node))))
+
+
+def fn_avl_balance(node):
+  if node == nil:
+    return node
+  if fn_avl_test(node):
+    return insert_left(
+      insert_right(
+        node,
+        fn_avl_balance(right_child(node))
+      ),
+      fn_avl_balance(left_child(node)))
+  if height(left_child(node)) > height(right_child(node)):
+    return fn_rotate_right(node)
+  return fn_rotate_left(node)
+
+
+fn_avl_insert = lambda parent, child: fn_avl_balance(fn_bst_insert(parent, child))
+
+
+fn_avl_delete = lambda node, value: fn_avl_balance(fn_bst_delete(node, value))
+
+
+"""
 Imperative AVL Tree
 
 Self balancing binary search tree
@@ -6,15 +85,16 @@ that builds off the work I did
 on BSTs for lecture 5
 """
 
+
 from lecture5 import Node, bst_insert, bst_delete, print_inorder
 
 
-def height(node):
+def get_node_height(node):
   if node is None:
     return 0
   if not node.left and not node.right:
     return 1
-  return 1 + max(height(node.left), height(node.right))
+  return 1 + max(get_node_height(node.left), get_node_height(node.right))
 
 
 get_size = lambda node: 0 if node is None else node.size
@@ -39,7 +119,7 @@ def rotate_right(node):
 
 
 def avl_test(node):
-  return abs(height(node.left) - height(node.right)) <= 1
+  return abs(get_node_height(node.left) - get_node_height(node.right)) <= 1
 
 
 def avl_balance(node):
@@ -49,7 +129,7 @@ def avl_balance(node):
   node.right = avl_balance(node.right)
   if avl_test(node):
     return node
-  if height(node.left) > height(node.right):
+  if get_node_height(node.left) > get_node_height(node.right):
     return rotate_right(node)
   return rotate_left(node)
 
