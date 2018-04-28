@@ -36,23 +36,23 @@ set_value = lambda node, value: \
   append(value, append(left_child(node), append(right_child(node), nil)))
 
 
-insert_left = lambda parent, child: \
+set_left_child = lambda parent, child: \
   append(valueof(parent), append(child, append(right_child(parent), nil)))
 
 
-insert_right = lambda parent, child: \
+set_right_child = lambda parent, child: \
   append(valueof(parent), append(left_child(parent), append(child, nil)))
 
 
 def fn_bst_insert(parent, child):
   if valueof(parent) > valueof(child) \
     and left_child(parent) == nil:
-      return insert_left(parent, child)
+      return set_left_child(parent, child)
   if valueof(parent) > valueof(child):
-    return insert_left(parent, fn_bst_insert(left_child(parent), child))
+    return set_left_child(parent, fn_bst_insert(left_child(parent), child))
   if right_child(parent) == nil:
-    return insert_right(parent, child)
-  return insert_right(parent, fn_bst_insert(right_child(parent), child))
+    return set_right_child(parent, child)
+  return set_right_child(parent, fn_bst_insert(right_child(parent), child))
 
 
 def fn_bst_search(node, value):
@@ -67,18 +67,26 @@ def fn_bst_search(node, value):
 
 def fn_bst_delete(node, value):
   if valueof(node) < value:
-    return insert_left(node, fn_bst_delete(left_child(node), value))
+    return set_left_child(node, fn_bst_delete(left_child(node), value))
   if valueof(node) > value:
-    return insert_right(node, fn_bst_delete(right_child(node), value))
+    return set_right_child(node, fn_bst_delete(right_child(node), value))
   if left_child(node) == nil and right_child(node) == nil:
     return nil
   if left_child(node) == nil:
     return right_child(node)
   if right_child(node) == nil:
     return left_child(node)
-  return insert_left(
+  return set_left_child(
     set_value(node, valueof(left_child(node))),
     fn_bst_delete(set_value(left_child(node), value), value))
+
+
+def fn_print_inorder(node):
+  if node == nil:
+    return
+  fn_print_inorder(left_child(node))
+  print valueof(node)
+  fn_print_inorder(right_child(node))
 
 
 """

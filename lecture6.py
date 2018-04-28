@@ -11,64 +11,58 @@ from lecture5 import (
   valueof,
   left_child,
   right_child,
-  insert_left,
-  insert_right,
+  set_left_child,
+  set_right_child,
   fn_bst_insert,
   fn_bst_delete,
+  fn_print_inorder,
 )
-
-# Add two natural numbers (w/ 0)
-add = lambda x, y: y if x == 0 else add((x - 1), y)
-
-
-sub = lambda x, y: x if y == 0 else sub((x - 1), (y - 1))
-
-
-leq = lambda x, y: x <= y
-
-
-gt = lambda x, y: x > y
 
 
 height = lambda node: \
   0 if node == nil \
-    else add(1, max(left_child(node), right_child(node))) # addition and max can be expressed as functions
+    else 1 + max(
+        height(left_child(node)),
+        height(right_child(node)))
 
 
 fn_rotate_left = lambda node: \
-  insert_left(
+  set_left_child(
     right_child(node),
-    insert_right(node, left_child(right_child(node))))
+    set_right_child(
+      node,
+      left_child(right_child(node))))
 
 
 fn_rotate_right = lambda node: \
-  insert_right(
+  set_right_child(
     left_child(node),
-    insert_left(
+    set_left_child(
       node,
       right_child(left_child(node))))
 
 
-fn_avl_test = lambda node: \
-  leq(1,
-    sub(
-      height(left_child(node)),
-      height(right_child(node))))
+fn_avl_test = lambda node: 1 >= abs(height(left_child(node)) - height(right_child(node)))
+
+
+apply_to_children = lambda f, node: \
+  set_left_child(
+    set_right_child(
+      node,
+      f(right_child(node))
+    ),
+    f(left_child(node))
+  )
 
 
 def fn_avl_balance(node):
   if node == nil:
     return node
   if fn_avl_test(node):
-    return insert_left(
-      insert_right(
-        node,
-        fn_avl_balance(right_child(node))
-      ),
-      fn_avl_balance(left_child(node)))
+    return apply_to_children(fn_avl_balance, node)
   if height(left_child(node)) > height(right_child(node)):
-    return fn_rotate_right(node)
-  return fn_rotate_left(node)
+    return fn_rotate_right(apply_to_children(fn_avl_balance, node))
+  return fn_rotate_left(apply_to_children(fn_avl_balance, node))
 
 
 fn_avl_insert = lambda parent, child: fn_avl_balance(fn_bst_insert(parent, child))
