@@ -86,7 +86,8 @@ def fn_bst_delete(node, value):
 Imperative BST
 
 Imperative implemtation of a BST
-with an insertion test
+with an insertion test and keeps
+track of size.
 
 In this case elements must differ by
 at least 3
@@ -102,11 +103,13 @@ class Node:
     self.value = value
     self.left = None
     self.right = None
+    self.size = 1
 
 
 def bst_insert(node, value):
   if not test(node.value, value):
     return node
+  node.size += 1
   if value < node.value and node.left is None:
     node.left = Node(value)
     return node
@@ -117,6 +120,13 @@ def bst_insert(node, value):
     node.right = Node(value)
     return node
   node.right = bst_insert(node.right, value)
+  return node
+
+
+def bst_insert_list(arr):
+  node = Node(arr[0])
+  for i in range(1, len(arr)):
+    bst_insert(node, arr[i])
   return node
 
 
@@ -139,11 +149,13 @@ def bst_delete(node, value):
   if value < node.value and node.left is None:
     return node
   if value < node.value:
+    node.size -= 1
     node.left = bst_delete(node.left, value)
     return node
   if value > node.value and node.right is None:
     return node
   if value > node.value:
+    node.size -= 1
     node.right = bst_delete(node.right, value)
     return node
   if node.left is None and node.right is None:
@@ -154,6 +166,7 @@ def bst_delete(node, value):
     return node.left
   node.value = node.left.value
   node.left.value = value
+  node.size -= 1
   node.left = bst_delete(node.left, value)
   return node
 
@@ -161,6 +174,6 @@ def bst_delete(node, value):
 def print_inorder(node):
   if node.left is not None:
     print_inorder(node.left)
-  print node.value
+  print 'value: %2d  size: %2d' % (node.value, node.size)
   if node.right is not None:
     print_inorder(node.right)
