@@ -49,10 +49,8 @@ apply_to_children = lambda f, node: \
   set_left_child(
     set_right_child(
       node,
-      f(right_child(node))
-    ),
-    f(left_child(node))
-  )
+      f(right_child(node))),
+    f(left_child(node)))
 
 
 def fn_avl_balance(node):
