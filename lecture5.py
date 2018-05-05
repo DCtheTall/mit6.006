@@ -44,15 +44,15 @@ set_right_child = lambda parent, child: \
   append(valueof(parent), append(left_child(parent), append(child, nil)))
 
 
-def fn_bst_insert(parent, child):
-  if valueof(parent) > valueof(child) \
+def fn_bst_insert(parent, value):
+  if valueof(parent) > value \
     and left_child(parent) == nil:
-      return set_left_child(parent, child)
-  if valueof(parent) > valueof(child):
-    return set_left_child(parent, fn_bst_insert(left_child(parent), child))
+      return set_left_child(parent, node(value))
+  if valueof(parent) > value:
+    return set_left_child(parent, fn_bst_insert(left_child(parent), node(value)))
   if right_child(parent) == nil:
-    return set_right_child(parent, child)
-  return set_right_child(parent, fn_bst_insert(right_child(parent), child))
+    return set_right_child(parent, node(value))
+  return set_right_child(parent, fn_bst_insert(right_child(parent), node(value)))
 
 
 def fn_bst_search(node, value):

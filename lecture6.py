@@ -63,7 +63,7 @@ def fn_avl_balance(node):
   return fn_rotate_left(apply_to_children(fn_avl_balance, node))
 
 
-fn_avl_insert = lambda parent, child: fn_avl_balance(fn_bst_insert(parent, child))
+fn_avl_insert = lambda parent, value: fn_avl_balance(fn_bst_insert(parent, value))
 
 
 fn_avl_delete = lambda node, value: fn_avl_balance(fn_bst_delete(node, value))

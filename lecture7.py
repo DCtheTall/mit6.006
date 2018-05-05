@@ -9,7 +9,7 @@ def counting_sort(k, arr):
   Counting sort implementation for an array
   of integers in the range [0, k)
   """
-  cache = [0] * k
+  cache = [0 for _ in range(k)]
   for key in arr:
     cache[key] += 1
   result = []
@@ -48,7 +48,7 @@ def binary_radix_sort(k, arr):
       digit = (key // (1 << i)) & 1
       buckets[digit].append(key)
     arr = []
-    for j in range(2):
+    for j in range(len(buckets)):
       for key in buckets[j]:
         arr.append(key)
     i += 1
