@@ -11,9 +11,10 @@ def is_prime(n):
   """
   Miller-Rabin primality test
   for n < 2 ** 64
-
   """
   test_vals = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+  if n in test_vals:
+    return True
   d = n - 1
   s = 0
   while not d & 1:
@@ -25,6 +26,17 @@ def is_prime(n):
         and (a ** d) % n != 1:
           return False
   return True
+
+
+def get_larger_prime(n):
+  """
+  Get a prime number larger than n
+  Not guaranteed to be the next prime
+  """
+  result = n + 2 if n % 2 else n + 1
+  while not is_prime(result):
+    result += 2
+  return result
 
 
 class Node:
@@ -152,13 +164,15 @@ class UnivHashTable(HashTable):
   """
   def __init__(self, size):
     HashTable.__init__(self, size, self.univ_hash)
-    self.large_prime = (self.size + 2) if self.size % 2 else (self.size + 3)
-    while not is_prime(self.large_prime):
-      self.large_prime += 2
+    self.large_prime = get_larger_prime(self.size)
     self.univ_a = randint(0, self.large_prime - 1)
     self.univ_b = randint(0, self.large_prime - 1)
 
   def univ_hash(self, value):
+    """
+    Universal hash function
+
+    """
     hash_value = (self.univ_a * hash(value)) + self.univ_b
     hash_value %= self.large_prime
     hash_value %= self.size
