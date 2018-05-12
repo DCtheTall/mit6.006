@@ -18,7 +18,7 @@ def is_prime(n):
   d = n - 1
   s = 0
   while not d & 1:
-    d >> 1
+    d = d >> 1
     s += 1
   for a in test_vals:
     for r in range(0, s):
@@ -158,13 +158,13 @@ class UnivHashTable(HashTable):
   ----------------
   h(k) = (((a * k) + b) mod p) mod size
   Where:
-    p is a VERY large prime number
+    p is a prime number larger than size
     a, b are random ints in [0, p)
 
   """
   def __init__(self, size):
     HashTable.__init__(self, size, self.univ_hash)
-    self.large_prime = get_larger_prime(self.size)
+    self.large_prime = get_larger_prime(2 * self.size)
     self.univ_a = randint(0, self.large_prime - 1)
     self.univ_b = randint(0, self.large_prime - 1)
 
