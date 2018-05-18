@@ -4,7 +4,7 @@ Karatsuba multiplication
 ------------------------
 
 This lecture series is the first in their module
-on arithmetic algorithms
+on numerics algorithms
 
 """
 
@@ -57,7 +57,3 @@ def karatsuba_multiply(a, b, precision=50, radix=10):
   return (c_2 * (radix * precision)) \
     + ((c_1 - c_2 - c_0) * (radix ** precision_on_2)) \
     + c_0
-
-print karatsuba_multiply(50385783759380, 30438543598347593875)
-
-
