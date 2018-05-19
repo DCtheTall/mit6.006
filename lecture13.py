@@ -22,6 +22,7 @@ tree = avl_insert(tree, 1)
 tree = avl_insert(tree, 19)
 tree = avl_insert(tree, 25)
 
+
 def bst_bfs(tree, value):
   """
   Breadth first search on a binary search tree
