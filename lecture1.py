@@ -1,3 +1,10 @@
+"""
+Peak finding (1D and 2D)
+------------------------
+
+"""
+
+
 def find1Dpeak(arr):
   """
   Finds a 1D peak in a list of comparable types

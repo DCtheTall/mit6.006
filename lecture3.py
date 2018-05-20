@@ -1,3 +1,11 @@
+"""
+Insertion sort
+and merge sort
+--------------
+
+"""
+
+
 def insertion_sort(arr):
   """
   Insertion sort implementation

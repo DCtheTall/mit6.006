@@ -1,13 +1,9 @@
-def swap(arr, i, j):
-  """
-  Swap elements in list arr at indices i and j
+"""
+Heaps
+-----
 
-  Complexity: O(1)
-  """
-  tmp = arr[i]
-  arr[i] = arr[j]
-  arr[j] = tmp
-  return arr
+"""
+
 
 def max_heapify(arr, i, N):
   """
@@ -24,7 +20,7 @@ def max_heapify(arr, i, N):
   if right < N and arr[largest] < arr[right]:
     largest = right
   if largest != i:
-    swap(arr, i, largest)
+    arr[i], arr[largest] = arr[largest], arr[i]
     max_heapify(arr, largest, N)
 
 def build_max_heap(arr):
@@ -55,6 +51,6 @@ def heap_sort(arr):
   """
   build_max_heap(arr)
   for i in range(len(arr) - 1, 0, -1):
-    swap(arr, 0, i)
+    arr[0], arr[i] = arr[i], arr[0]
     max_heapify(arr, 0, i)
   return arr

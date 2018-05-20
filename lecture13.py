@@ -11,18 +11,6 @@ in the lecture
 """
 
 
-from lecture5 import Node
-from lecture6 import avl_insert, get_node_height
-
-
-tree = Node(15)
-tree = avl_insert(tree, 5)
-tree = avl_insert(tree, 10)
-tree = avl_insert(tree, 1)
-tree = avl_insert(tree, 19)
-tree = avl_insert(tree, 25)
-
-
 def bst_bfs(tree, value):
   """
   Breadth first search on a binary search tree
@@ -45,7 +33,7 @@ def bst_bfs(tree, value):
   return False
 
 
-def add_graph_node(val, adjacency_list):
+def add_graph_node(adjacency_list, val):
   """
   Add a node to a graph, adjacency_list
   is a dictionary of lists
@@ -55,7 +43,7 @@ def add_graph_node(val, adjacency_list):
   return adjacency_list
 
 
-def add_directed_edge(v1, v2, adjacency_list):
+def add_directed_edge(adjacency_list, v1, v2):
   """
   Add directed graph edge to the
   adjacency list from v1 to v2
@@ -69,7 +57,7 @@ def add_directed_edge(v1, v2, adjacency_list):
   adjacency_list[v1].append(v2)
 
 
-def add_undirected_edge(v1, v2, adjacency_list):
+def add_undirected_edge(adjacency_list, v1, v2):
   """
   Add an undirected graph edge to the
   adjacency list

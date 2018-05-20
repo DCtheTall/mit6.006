@@ -3,6 +3,7 @@ Functional AVL Tree
 
 Self balancing functional
 binary search tree
+
 """
 
 from lecture5 import (
@@ -75,6 +76,7 @@ Imperative AVL Tree
 Self balancing binary search tree
 that builds off the work I did
 on BSTs for lecture 5
+
 """
 
 
