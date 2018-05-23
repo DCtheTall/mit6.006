@@ -120,6 +120,9 @@ def topological_sort_dfs_visit(sorted_list, visiting, parents, adjacency_list, s
   backwards edge, which raises an
   exception
 
+  Once visiting the node is finished,
+  append it to the list
+
   """
   visiting[s] = True
   for u in adjacency_list[s]:
@@ -128,6 +131,13 @@ def topological_sort_dfs_visit(sorted_list, visiting, parents, adjacency_list, s
     if u in parents:
       continue
     parents[u] = s
+    topological_sort_dfs_visit(
+      sorted_list,
+      visiting,
+      parents,
+      adjacency_list,
+      u,
+    )
   del visiting[s]
   sorted_list.append(s)
 
@@ -137,9 +147,7 @@ def topological_sort(adjacency_list):
   Topological sort on a graph
   using depth first search
 
-  Assumes the graph has no
-  cycles, otherwise it will
-  raise an exception
+  Assumes the graph is a DAG
 
   Complexity: O(v + e)
 
