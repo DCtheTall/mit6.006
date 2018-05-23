@@ -11,6 +11,7 @@ def insertion_sort(arr):
   Insertion sort implementation
 
   Complexity: O(n ** 2)
+
   """
   for i in range(1, len(arr)):
     for j in range(0, i):
@@ -26,6 +27,7 @@ def insertion_sort2(L):
   Slightly improved insertion sort
 
   Complexity: O(n ** 2)
+
   """
   for i in range(len(L)):
     key = L[i]
@@ -45,6 +47,7 @@ def merge(left, right):
 
   Complexity: O(n + m)
   where n = len(left) and m = len(right)
+
   """
   i = 0
   j = 0
@@ -68,6 +71,7 @@ def merge_sort(L):
 
   Complexity: O(n * log(n))
   where n = len(arr)
+
   """
   n = len(L)
   if n < 2:
@@ -88,6 +92,7 @@ to avoid writing ugly ternaries.
 The above implementation is faster
 and runs less risk of stack overflow.
 This is more of an academic exercise.
+
 """
 
 def func_merge(left, right):

@@ -17,6 +17,7 @@ def find1Dpeak(arr):
 
   Complexity: O(log(n))
   where n = len(list)
+
   """
   n = len(arr)
   if n == 1:
@@ -28,6 +29,7 @@ def find1Dpeak(arr):
   if arr[n / 2] < arr[(n / 2) + 1]:
     return find1Dpeak(arr[n / 2:])
   return arr[n / 2]
+
 
 def find2Dpeak(plane):
   """
@@ -49,6 +51,7 @@ def find2Dpeak(plane):
 
   Complexity: T(n, m) = T(n, m/2) + O(n) = O(n * log(m))
   where n = len(child_list) and m = len(parent_list)
+
   """
   n = len(plane)
   middle_row = plane[n / 2]

@@ -1,5 +1,6 @@
 """
-Depth first search
+Depth first search,
+backwards edge (cycle) detection,
 and topological sort
 --------------------
 

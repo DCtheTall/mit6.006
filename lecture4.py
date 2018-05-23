@@ -11,6 +11,7 @@ def max_heapify(arr, i, N):
 
   Complexity: O(log(N))
   One operation for each level of the tree deeper than the log(i)
+
   """
   left = i << 1
   right = left + 1
@@ -23,6 +24,7 @@ def max_heapify(arr, i, N):
     arr[i], arr[largest] = arr[largest], arr[i]
     max_heapify(arr, largest, N)
 
+
 def build_max_heap(arr):
   """
   Build a max heap out of list arr
@@ -34,10 +36,12 @@ def build_max_heap(arr):
   The third term in the product is bounded by a constant
   So num ops converges to 2^k * C where C is some constant
   So therefore num ops is propto n
+
   """
   for i in range(len(arr) / 2, -1, -1):
     max_heapify(arr, i, len(arr))
   return arr
+
 
 def heap_sort(arr):
   """
@@ -48,6 +52,7 @@ def heap_sort(arr):
   Then iterate over each element of arr:
     - Call swap: O(1)
     - max_heapify: O(log(N)) for N in 1 to n
+
   """
   build_max_heap(arr)
   for i in range(len(arr) - 1, 0, -1):

@@ -5,6 +5,7 @@ Implementation
 A bst structure using only lambda statements
 by representing it a a series of nested linked
 lists
+
 """
 
 nil = lambda s: s(None, None)
@@ -89,6 +90,16 @@ def fn_print_inorder(node):
   fn_print_inorder(right_child(node))
 
 
+def fn_bst_invert(node):
+  if node == nil:
+    return nil
+  return set_left_child(
+    set_right_child(
+      node,
+      fn_bst_invert(left_child(node))),
+    fn_bst_invert(right_child(node)))
+
+
 """
 Imperative BST
 
@@ -98,6 +109,7 @@ track of size.
 
 In this case elements must differ by
 at least 3
+
 """
 
 
@@ -184,3 +196,11 @@ def print_inorder(node):
   print 'value: %2d  size: %2d' % (node.value, node.size)
   if node.right is not None:
     print_inorder(node.right)
+
+
+def bst_invert(node):
+  if node == None:
+    return None
+  node.left = bst_invert(node.right)
+  node.right = bst_invert(node.left)
+  return node
