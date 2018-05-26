@@ -26,9 +26,9 @@ def bst_bfs(tree, value):
     if curr.value == value:
       return True
     i += 1
-    if value < curr.value and curr.left:
+    if curr.left:
       queue.append(curr.left)
-    if value > curr.value and curr.right:
+    if curr.right:
       queue.append(curr.right)
   return False
 
