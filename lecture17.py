@@ -21,7 +21,7 @@ def bellman_ford(adjaceny_list, weights, s):
     predecessors[v] = None
     path_costs[v] = float('inf')
   path_costs[s] = 0
-  for _ in range(1, len(adjaceny_list) - 1):
+  for _ in range(1, len(adjaceny_list)):
     for edge in weights:
       (u, v) = edge
       if path_costs[u] + weights[edge] < path_costs[v]:
