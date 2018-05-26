@@ -39,7 +39,7 @@ def add_graph_node(adjacency_list, val):
   is a dictionary of lists
 
   """
-  adjacency_list[val] = []
+  adjacency_list[val] = set()
   return adjacency_list
 
 
@@ -54,7 +54,7 @@ def add_directed_edge(adjacency_list, v1, v2):
     adjacency_list[v2]
   except:
     return
-  adjacency_list[v1].append(v2)
+  adjacency_list[v1].add(v2)
 
 
 def add_undirected_edge(adjacency_list, v1, v2):
@@ -68,8 +68,8 @@ def add_undirected_edge(adjacency_list, v1, v2):
     adjacency_list[v2]
   except:
     return
-  adjacency_list[v1].append(v2)
-  adjacency_list[v2].append(v1)
+  adjacency_list[v1].add(v2)
+  adjacency_list[v2].add(v1)
 
 
 

@@ -17,7 +17,7 @@ def add_directed_weighted_edge(adjacency_list, weights, u, v, w):
   used for storing graph data
 
   """
-  adjacency_list[u].append(v)
+  adjacency_list[u].add(v)
   weights[(u, v)] = w
 
 
@@ -54,16 +54,19 @@ def dijkstra(adjacency_list, weights, s):
   from s given that each edge weight
   is >= 0
 
+  Complexity: O(v * log(v) + e)
+  where v is the number of vertices in the graph
+  and e is the number of edges
+
   """
-  unfinished = dict(adjacency_list)
+  unfinished = {}
+  for u in adjacency_list: # create a dict of all unfinished vertices cost from s
+    unfinished[u] = float('inf')
   unfinished[s] = 0
-  for u in unfinished: # create a dict of all unfinished vertices cost from s
-    if u != s:
-      unfinished[u] = float('inf')
   path_costs = {}
   predecessors = { s: None }
   while unfinished:
-    u = min(unfinished) # get the closest vertex to s (starting with s)
+    u = min(unfinished, key=unfinished.get) # get the closest vertex to s (starting with s)
     path_costs[u] = unfinished[u]  # record the cost to get there
     del unfinished[u] # remove it from the set of unfinished vertices
     for v in adjacency_list[u]:

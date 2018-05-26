@@ -14,6 +14,8 @@ def bellman_ford(adjaceny_list, weights, s):
   If it detects a negative cycle, it
   will raise an Exception
 
+  Complexity: O(v * e)
+
   """
   predecessors = {}
   path_costs = {}
