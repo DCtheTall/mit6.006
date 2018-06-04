@@ -7,7 +7,7 @@ Heaps
 
 def max_heapify(arr, i, N):
   """
-  Max heapify a list arr from index N-1 to index i
+  Max heapify a list arr from index i to index N-1
 
   Complexity: O(log(N))
   One operation for each level of the tree deeper than the log(i)
