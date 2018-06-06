@@ -11,28 +11,6 @@ in the lecture
 """
 
 
-def bst_bfs(tree, value):
-  """
-  Breadth first search on a binary search tree
-  with conditionals that reduce unnecessary
-  traversal
-
-  Complexity: Worst case this is O(log(n))
-  """
-  queue = [tree]
-  i = 0
-  while i < len(queue):
-    curr = queue[i]
-    if curr.value == value:
-      return True
-    i += 1
-    if curr.left:
-      queue.append(curr.left)
-    if curr.right:
-      queue.append(curr.right)
-  return False
-
-
 def add_graph_node(adjacency_list, val):
   """
   Add a node to a graph, adjacency_list

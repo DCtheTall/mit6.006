@@ -7,32 +7,6 @@ and topological sort
 """
 
 
-def non_recursive_bst_dfs(tree, value):
-  """
-  A recursive depth first search
-  on a binary search tree was
-  already implemented in lecture5.py
-
-  This implementation uses a stack
-  instead of recursion
-
-  Complexity: O(v + e)
-  where v is the number of nodes
-  and e is the number of edges
-
-  """
-  stack = [tree]
-  while stack:
-    curr = stack.pop()
-    if curr.value == value:
-      return True
-    if value < curr.value and curr.left:
-      stack.append(curr.left)
-    if value > curr.value and curr.right:
-      stack.append(curr.right)
-  return False
-
-
 def dfs_visit(parents, adjacency_list, s):
   """
   Recursive depth first search for

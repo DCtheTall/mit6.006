@@ -105,7 +105,6 @@ def bidirectional_djikstra(adjacency_list, weights, s, t):
         joint_costs[u] = backward_path_costs[u] + unfinished_forward[u]
       min_cost_vertex = min(joint_costs, key=joint_costs.get)
       predecessors = {s: None} # Construct the shortest path from s to t
-      print backward_predecessors
       curr = min_cost_vertex
       while curr != s:
         predecessors[curr] = forward_predecessors[curr]
