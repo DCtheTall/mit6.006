@@ -71,7 +71,7 @@ class Card:
     self.value = 'ace' if n == 1 else min(n, 10)
 
 
-def build_shuffled_deck():
+def get_shuffled_deck():
   """
   Create a shuffled deck of Card instances
 
@@ -126,13 +126,14 @@ def play_dealer_turn(deck, start, starting_hand):
   of cards
 
   """
+  curr = start
   curr_hand = list(starting_hand)
   curr_value = get_hand_value(starting_hand)
   hits = 0
-  while 0 < curr_value < 17 and (start + hits) < 52:
-    start += 1
+  while 0 < curr_value < 17 and curr < (len(deck) - 1):
+    curr += 1
     hits += 1
-    curr_hand.append(deck[start])
+    curr_hand.append(deck[curr])
     curr_value = get_hand_value(starting_hand)
   return (hits, curr_hand)
 
@@ -161,10 +162,50 @@ def round_outcome(deck, start, hits):
   turn and the result of the game
 
   """
+  if (start + hits) >= len(deck):
+    return (0, -float('inf'))
+  if (start + hits) > (len(deck) - 4):
+    return (len(deck) - start, -float('inf'))
   (player_hand, dealer_hand) = deal_hands(deck, start)
-  for i in range(hits):
+  i = 0
+  while i < hits and get_hand_value(player_hand) > 0:
     player_hand.append(deck[start + 4 + i])
-  cards_played = hits + 4
+  cards_played = i + 4
   (dealer_hits, dealer_hand) = play_dealer_turn(deck, start + hits + 4, dealer_hand)
   cards_played += dealer_hits
-  return (cards_played, get_game_score(player_hand, dealer_hand))
+  return (
+    cards_played,
+    get_game_score(player_hand, dealer_hand),
+  )
+
+
+def perfect_blackjack(deck):
+  """
+  Perfect information Black Jack
+
+  Given that you know every card in the deck
+  this computes the best possible game you
+  can play
+
+  Returns 2 dictionaries, one is the most
+  the player can win if the deck starts at
+  that card, the 2nd is a parent pointer
+  which shows how many hits the player
+  should take when the deck starts at
+  a particular card
+
+  """
+  best_scores = {52: -float('inf')}
+  parents = {}
+  for i in range(51, -1, -1):
+    scores = {}
+    for hits in range(0, 52 - i):
+      (cards_played, game_score) = round_outcome(deck, i, hits)
+      if best_scores[i + cards_played] != -float('inf'):
+        game_score += best_scores[i + cards_played]
+      if game_score not in scores:
+        scores[game_score] = hits
+    best_scores[i] = max(scores)
+    parents[i] = scores[max(scores)]
+  return best_scores, parents
+
