@@ -170,6 +170,7 @@ def round_outcome(deck, start, hits):
   i = 0
   while i < hits and get_hand_value(player_hand) > 0:
     player_hand.append(deck[start + 4 + i])
+    i += 1
   cards_played = i + 4
   (dealer_hits, dealer_hand) = play_dealer_turn(deck, start + hits + 4, dealer_hand)
   cards_played += dealer_hits
@@ -208,4 +209,3 @@ def perfect_blackjack(deck):
     best_scores[i] = max(scores)
     parents[i] = scores[max(scores)]
   return best_scores, parents
-
