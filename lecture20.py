@@ -197,7 +197,7 @@ def perfect_blackjack(deck):
 
   """
   best_scores = {52: -float('inf')}
-  parents = {}
+  best_hits = {}
   for i in range(51, -1, -1):
     scores = {}
     for hits in range(0, 52 - i):
@@ -207,5 +207,5 @@ def perfect_blackjack(deck):
       if game_score not in scores:
         scores[game_score] = hits
     best_scores[i] = max(scores)
-    parents[i] = scores[max(scores)]
-  return best_scores, parents
+    best_hits[i] = scores[max(scores)]
+  return best_scores, best_hits

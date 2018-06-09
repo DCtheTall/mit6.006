@@ -6,20 +6,18 @@ and merge sort
 """
 
 
-def insertion_sort(arr):
+def insertion_sort(L):
   """
   Insertion sort implementation
 
   Complexity: O(n ** 2)
 
   """
-  for i in range(1, len(arr)):
+  for i in range(1, len(L)):
     for j in range(0, i):
-      if arr[i - j] < arr[i - j - 1]:
-        tmp = arr[i - j]
-        arr[i - j] = arr[i - j - 1]
-        arr[i - j - 1] = tmp
-  return arr
+      if L[i - j] < L[i - j - 1]:
+        L[i - j],  L[i - j - 1] = L[i - j - 1], L[i - j]
+  return L
 
 
 def insertion_sort2(L):
@@ -38,8 +36,10 @@ def insertion_sort2(L):
     L[j + 1] = key
   return L
 
+
 # Merge sort
 # From: https://en.wikipedia.org/wiki/Merge_sort
+
 
 def merge(left, right):
   """
@@ -65,6 +65,7 @@ def merge(left, right):
     result.extend(right[j:])
   return result
 
+
 def merge_sort(L):
   """
   Merge sort
@@ -79,6 +80,7 @@ def merge_sort(L):
   left = merge_sort(L[:n / 2])
   right = merge_sort(L[n / 2:])
   return merge(left, right)
+
 
 """
 Functional merge sort
@@ -95,6 +97,7 @@ This is more of an academic exercise.
 
 """
 
+
 def func_merge(left, right):
   if not left:
     return right
@@ -103,6 +106,7 @@ def func_merge(left, right):
   if left[0] < right[0]:
     return left[:1] + func_merge(left[1:], right)
   return right[:1] + func_merge(left, right[1:])
+
 
 def func_merge_sort(L):
   if len(L) < 2:

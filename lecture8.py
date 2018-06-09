@@ -11,6 +11,7 @@ def is_prime(n):
   """
   Miller-Rabin primality test
   for n < 2 ** 64
+
   """
   test_vals = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
   if n in test_vals:
@@ -32,6 +33,7 @@ def get_larger_prime(n):
   """
   Get a prime number larger than n
   Not guaranteed to be the next prime
+
   """
   result = n + 2 if n % 2 else n + 1
   while not is_prime(result):

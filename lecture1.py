@@ -23,7 +23,7 @@ def find1Dpeak(arr):
   if n == 1:
     return arr[0]
   if n == 2:
-    return arr[1] if arr[0] < arr[1] else arr[0]
+    return max(arr)
   if arr[n / 2] < arr[(n / 2) - 1]:
     return find1Dpeak(arr[:n / 2])
   if arr[n / 2] < arr[(n / 2) + 1]:
@@ -60,7 +60,7 @@ def find2Dpeak(plane):
   if n == 1:
     return middle_max
   if n == 2:
-    return plane[0][i] if middle_max < plane[0][i] else middle_max
+    return max(plane[0][i], middle_max)
   if middle_max < plane[(n / 2) - 1][i]:
     return find2Dpeak(plane[n / 2:])
   if middle_max < plane[(n / 2) + 1][i]:

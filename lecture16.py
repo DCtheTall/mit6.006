@@ -64,7 +64,7 @@ def dijkstra(adjacency_list, weights, s):
     unfinished[u] = float('inf')
   unfinished[s] = 0
   path_costs = {}
-  predecessors = { s: None }
+  predecessors = {s: None}
   while unfinished:
     u = min(unfinished, key=unfinished.get) # get the closest vertex to s (starting with s)
     path_costs[u] = unfinished[u]  # record the cost to get there
