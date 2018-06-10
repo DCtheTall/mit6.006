@@ -1,65 +1,14 @@
 """
-Dynamic Programing II:
-Text justification,
-Perfect Information Blackjack
+Dynamic Programming II:
+=======================
+
+Perfect information Black Jack
+------------------------------
 
 """
+
 
 import random
-
-
-def badness(page_width, word_lengths, i, j):
-  """
-  Get the "badness" of a line of text
-  given the width of the page you are
-  trying to fit it on
-
-  """
-  total_width = sum(word_lengths[i-1:j]) + j - i + 1
-  if page_width < total_width:
-    return float('inf')
-  return (page_width - total_width) ** 3
-
-
-def justify_text(page_width, text):
-  """
-  Justify text for a given page width given
-  a list of words
-
-  Implementation based on:
-  https://stackoverflow.com/questions/18200593/implementing-text-justification-with-dynamic-programming
-
-  Complexity: O(n ** 2)
-
-  """
-  words = text.split()
-  word_lengths = [len(word) for word in words]
-  n = len(words)
-  min_badnesses = {0: 0}
-  parents = {}
-  for i in range(1, n + 1):
-    badnesses = {}
-    k = i
-    curr_badness = 0
-    while k > 0 and curr_badness != float('inf'):
-      curr_badness = badness(page_width, word_lengths, k, i) + min_badnesses[k - 1]
-      badnesses[curr_badness] = k
-      k -= 1
-    min_badnesses[i] = min(badnesses)
-    parents[i] = badnesses[min(badnesses)]
-  curr = n
-  justified_text = []
-  while curr > 1:
-    justified_text.append(' '.join(words[parents[curr] - 1 : curr]))
-    curr = parents[curr]
-  justified_text.reverse()
-  return '\n'.join(justified_text)
-
-
-"""
-Perfect information Black Jack
-
-"""
 
 
 class Card:
@@ -67,6 +16,7 @@ class Card:
   Card class for Black Jack
 
   """
+
   def __init__(self, n):
     self.value = 'ace' if n == 1 else min(n, 10)
 
@@ -115,8 +65,8 @@ def deal_hands(deck, start):
 
   """
   return (
-    [deck[start], deck[start + 2]],
-    [deck[start + 1], deck[start + 3]],
+      [deck[start], deck[start + 2]],
+      [deck[start + 1], deck[start + 3]],
   )
 
 
@@ -172,11 +122,12 @@ def round_outcome(deck, start, hits):
     player_hand.append(deck[start + 4 + i])
     i += 1
   cards_played = i + 4
-  (dealer_hits, dealer_hand) = play_dealer_turn(deck, start + hits + 4, dealer_hand)
+  (dealer_hits, dealer_hand) = play_dealer_turn(
+      deck, start + hits + 4, dealer_hand)
   cards_played += dealer_hits
   return (
-    cards_played,
-    get_game_score(player_hand, dealer_hand),
+      cards_played,
+      get_game_score(player_hand, dealer_hand),
   )
 
 
