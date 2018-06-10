@@ -2,7 +2,7 @@
 Dynamic Programing III:
 =======================
 
-1. Edit Distance
+2. Edit Distance
 ----------------
 
 Find the optimal way to change a string: str1
@@ -30,30 +30,30 @@ def dp_edit_distance(str1, str2):
   """
   n = len(str1)
   m = len(str2)
-  optimal_costs = {}
+  optimal_edit_distances = {}
   i = n - 1
   j = m - 1
   for i in range(n - 1, -1, -1):
     for j in range(m - 1, -1, -1):
       if str1[i] == str2[j]:
         if i == n - 1 and j == m - 1:
-          optimal_costs[(i, j)] = 0
+          optimal_edit_distances[(i, j)] = 0
         elif i == n - 1:
-          optimal_costs[(i, j)] = optimal_costs[(i, j + 1)]
+          optimal_edit_distances[(i, j)] = optimal_edit_distances[(i, j + 1)]
         elif j == m - 1:
-          optimal_costs[(i, j)] = optimal_costs[(i + 1, j)]
+          optimal_edit_distances[(i, j)] = optimal_edit_distances[(i + 1, j)]
         else:
-          optimal_costs[(i, j)] = optimal_costs[(i + 1, j + 1)]
+          optimal_edit_distances[(i, j)] = optimal_edit_distances[(i + 1, j + 1)]
       elif i == n - 1 and j == m - 1:
-        optimal_costs[(i, j)] = 2 if n == m else 1
+        optimal_edit_distances[(i, j)] = 2 if n == m else 1
       elif i == n - 1:
-        optimal_costs[(i, j)] = 1 + optimal_costs[(i, j + 1)]
+        optimal_edit_distances[(i, j)] = 1 + optimal_edit_distances[(i, j + 1)]
       elif j == m - 1:
-        optimal_costs[(i, j)] = 1 + optimal_costs[(i + 1, j)]
+        optimal_edit_distances[(i, j)] = 1 + optimal_edit_distances[(i + 1, j)]
       else:
-        optimal_costs[(i, j)] = min(
-          1 + optimal_costs[(i + 1, j)], # cost of delete
-          1 + optimal_costs[(i, j + 1)], # cost of insert
-          2 + optimal_costs[(i + 1, j + 1)], # cost of replace
+        optimal_edit_distances[(i, j)] = min(
+          1 + optimal_edit_distances[(i + 1, j)], # cost of delete
+          1 + optimal_edit_distances[(i, j + 1)], # cost of insert
+          2 + optimal_edit_distances[(i + 1, j + 1)], # cost of replace
         )
-  return optimal_costs[(0, 0)]
+  return optimal_edit_distances[(0, 0)]
