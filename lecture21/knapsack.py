@@ -21,6 +21,7 @@ def get_optimal_knapsack_value(W, items):
   up to a weight W
 
   Complexity: O(n * S)
+
   """
   n = len(items)
   knapsacks = {}
