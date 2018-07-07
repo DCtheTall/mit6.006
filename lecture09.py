@@ -5,7 +5,7 @@ String matching
 """
 
 
-from lecture8 import get_larger_prime, is_prime
+from lecture08 import get_larger_prime, is_prime
 
 
 def simple_text_search(s, t):

@@ -48,7 +48,7 @@ def binary_radix_sort(k, arr):
       digit = (key // (1 << i)) & 1
       buckets[digit].append(key)
     arr = []
-    for j in range(len(buckets)):
+    for j in range(2):
       for key in buckets[j]:
         arr.append(key)
     i += 1
