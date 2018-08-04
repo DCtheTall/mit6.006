@@ -8,6 +8,7 @@ def counting_sort(k, arr):
   """
   Counting sort implementation for an array
   of integers in the range [0, k)
+
   """
   cache = [0 for _ in range(k)]
   for key in arr:
@@ -26,6 +27,7 @@ def counting_sort2(k, arr):
   which uses nested lists
 
   Complexity: O(n + k)
+
   """
   cache = [[] for _ in range(k)] # O(k)
   for e in arr: # O(n)
@@ -40,6 +42,7 @@ def binary_radix_sort(k, arr):
   """
   Radix sort for base 2 for a
   list of integers in the range [0, k)
+
   """
   i = 0
   while (1 << i) < k:
@@ -59,6 +62,7 @@ def radix_sort(k, arr, base=2):
   """
   Radix sort for an arbitrary base
   Sorts a list of integers in [0, k)
+
   """
   i = 0
   while (base ** i) < k:
