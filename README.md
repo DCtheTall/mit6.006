@@ -26,6 +26,12 @@ has its lectures available for free on [YouTube](https://www.youtube.com/playlis
 - Bellman-Ford shortest path algorithm
 - Single target, bi-directional, and goal-directed Dijkstra's
 
+### Algorithms in this repo not covered in the course
+
+- QuickSort
+- A* search
+- Iterated-Depth Depth First Search (IDDFS)
+
 *: Includes imperative and pure functional implementations
 
 ---

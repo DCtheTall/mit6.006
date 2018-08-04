@@ -25,6 +25,8 @@ def h(adj, s, g):
   as long as min(path weights) is greater
   than number of vertices
 
+  Complexity: O(E) where E is the size of the set of edges
+
   """
   visited = {s}
   level = 0
@@ -53,27 +55,22 @@ def A_star(adj, weights, s, g):
   asssuming h(adj, s, g) is constant
 
   """
-  open_set = {s}
-  closed_set = set()
   parents = dict()
-  g_scores = dict()
-  f_scores = dict()
+  incomplete = dict()
   for u in adj:
-    f_scores[u] = float('inf')
-    g_scores[u] = float('inf')
-  f_scores[s] = h(adj, s, g)
-  g_scores[s] = 0
-  while open_set:
-    u = min(open_set, key=f_scores.get)
+    incomplete[u] = float('inf')
+  incomplete[s] = h(adj, s, g)
+  while incomplete:
+    u = min(incomplete, key=incomplete.get)
     if u == g:
-      return (f_scores[u], parents)
-    open_set.remove(u)
-    closed_set.add(u)
+      return (incomplete[u], parents)
+    del incomplete[s]
+    h_u = h(adj, u, g)
     for v in adj[u]:
-      if v in closed_set:
+      if v in parents:
         continue
-      elif g_scores[v] <= g_scores[u] + weights[(u, v)]:
+      elif incomplete[v] <= (incomplete[u] + weights[(u, v)] - h_u):
         continue
-      g_scores[v] = g_scores[u] + weights[(u, v)]
-      f_scores[v] = g_scores[v] + h(adj, v, g)
+      parents[v] = u
+      incomplete[v] = incomplete[u] + weights[(u, v)] + h(adj, v, g)
 
