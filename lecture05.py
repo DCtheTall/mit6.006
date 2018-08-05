@@ -11,33 +11,27 @@ at least 3
 """
 
 
-def test(v1, v2):
-  return abs(v1 - v2) > 3
-
-
 class Node:
   def __init__(self, value):
     self.value = value
     self.left = None
     self.right = None
-    self.size = 1
+    self.parent = None
 
 
 def bst_insert(node, value):
-  if not test(node.value, value):
-    return node
-  node.size += 1
-  if value < node.value and node.left is None:
-    node.left = Node(value)
-    return node
+  if node.value == value:
+    return
   if value < node.value:
-    node.left = bst_insert(node.left, value)
-    return node
+    if node.left:
+      bst_insert(node.left, value)
+    else:
+      node.left = Node(value)
+      node.left.parent = node
   if node.right is None:
     node.right = Node(value)
-    return node
-  node.right = bst_insert(node.right, value)
-  return node
+    node.right.parent = node
+  bst_insert(node.right, value)
 
 
 def bst_insert_list(arr):
@@ -50,8 +44,6 @@ def bst_insert_list(arr):
 def bst_search(node, value):
   if node.value == value:
     return True
-  if not test(node.value, value):
-    return False
   if node.value > value:
     return False if node.left is None \
       else bst_search(node.left, value)
@@ -60,39 +52,34 @@ def bst_search(node, value):
 
 
 def bst_delete(node, value):
-  if node.value != value \
-    and not test(node.value, value):
-      return node
-  if value < node.value and node.left is None:
-    return node
-  if value < node.value:
-    node.size -= 1
+  if value < node.value and node.left is not None:
     bst_delete(node.left, value)
-    return node
-  if value > node.value and node.right is None:
-    return node
-  if value > node.value:
-    node.size -= 1
-    node.right = bst_delete(node.right, value)
-    return node
-  if node.left is None and node.right is None:
-    return None
-  if node.left is None:
-    return node.right
-  if node.right is None:
-    return node.left
-  node.size -= 1
-  tmp = node.left
-  prev = node
-  while tmp.right is not None:
-    prev = tmp
-    tmp = tmp.right
-  node.value = tmp.value
-  if prev == node:
-    prev.left = bst_delete(tmp, value)
-  else:
-    prev.right = bst_delete(tmp, value)
-  return node
+  elif value > node.value and node.right is not None:
+    bst_delete(node.right, value)
+  elif value == node.value:
+    if node.left is None \
+      and node.right is None \
+      and node.parent is not None:
+        if node == node.parent.left:
+          node.parent.left = None
+        else:
+          node.parent.right = None
+    elif node.left is None and node.parent:
+      if node == node.parent.left:
+        node.parent.left = node.right
+      else:
+        node.parent.right = node.right
+    elif node.right is None and node.parent:
+      if node == node.parent.left:
+        node.parent.left = node.left
+      else:
+        node.parent.right = node.left
+    else:
+      tmp = node.left
+      while tmp.right is not None:
+        tmp = tmp.right
+      node.value = tmp.value
+      bst_delete(tmp, tmp.value)
 
 
 def print_inorder(node):

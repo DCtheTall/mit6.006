@@ -8,7 +8,7 @@ on BSTs for lecture 5
 """
 
 
-from lecture5 import Node, bst_insert, bst_delete, print_inorder
+from lecture05 import Node, bst_insert, bst_delete, print_inorder
 
 
 def get_node_height(node):
@@ -19,25 +19,18 @@ def get_node_height(node):
   return 1 + max(get_node_height(node.left), get_node_height(node.right))
 
 
-get_size = lambda node: 0 if node is None else node.size
-
-
 def rotate_left(node):
   tmp = node.right
+  tmp.parent = node.parent
   node.right = tmp.left
   tmp.left = node
-  node.size = 1 + get_size(node.right) + get_size(node.left)
-  tmp.size = 1 + get_size(tmp.left) + get_size(tmp.right)
-  return tmp
 
 
 def rotate_right(node):
   tmp = node.left
+  tmp.parent = node.parent
   node.left = tmp.right
   tmp.right = node
-  node.size = 1 + get_size(node.right) + get_size(node.left)
-  tmp.size = 1 + get_size(tmp.left) + get_size(tmp.right)
-  return tmp
 
 
 def avl_test(node):
@@ -47,24 +40,24 @@ def avl_test(node):
 def avl_balance(node):
   if not node:
     return None
-  node.left = avl_balance(node.left)
-  node.right = avl_balance(node.right)
+  avl_balance(node.left)
+  avl_balance(node.right)
   if avl_test(node):
-    return node
+    return
   if get_node_height(node.left) > get_node_height(node.right):
-    return rotate_right(node)
-  return rotate_left(node)
+    rotate_right(node)
+  rotate_left(node)
 
 
 def avl_insert(node, value):
-  node = bst_insert(node, value)
-  node = avl_balance(node)
+  bst_insert(node, value)
+  avl_balance(node)
   return node
 
 
 def avl_delete(node, value):
-  node = bst_delete(node, value)
-  node = avl_balance(node)
+  bst_delete(node, value)
+  avl_balance(node)
   return node
 
 
