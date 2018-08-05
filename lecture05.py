@@ -1,107 +1,5 @@
 """
-Functional Binary Search Tree
-Implementation
-
-A bst structure using only lambda statements
-by representing it a a series of nested linked
-lists
-
-"""
-
-nil = lambda s: s(None, None)
-
-
-def head(L): return L(lambda x, y: x)
-
-
-def tail(L): return L(lambda x, y: y)
-
-
-def append(e, L):
-  return lambda s: s(e, L)
-
-
-node = lambda v: append(v, append(nil, append(nil, nil)))
-
-
-valueof = lambda node: head(node)
-
-
-left_child = lambda node: head(tail(node))
-
-
-right_child = lambda node: head(tail(tail(node)))
-
-
-set_value = lambda node, value: \
-  append(value, append(left_child(node), append(right_child(node), nil)))
-
-
-set_left_child = lambda parent, child: \
-  append(valueof(parent), append(child, append(right_child(parent), nil)))
-
-
-set_right_child = lambda parent, child: \
-  append(valueof(parent), append(left_child(parent), append(child, nil)))
-
-
-def fn_bst_insert(parent, value):
-  if valueof(parent) > value \
-    and left_child(parent) == nil:
-      return set_left_child(parent, node(value))
-  if valueof(parent) > value:
-    return set_left_child(parent, fn_bst_insert(left_child(parent), node(value)))
-  if right_child(parent) == nil:
-    return set_right_child(parent, node(value))
-  return set_right_child(parent, fn_bst_insert(right_child(parent), node(value)))
-
-
-def fn_bst_search(node, value):
-  if valueof(node) == value:
-    return True
-  if left_child(node) != nil and value < valueof(node):
-    return fn_bst_search(left_child(node), value)
-  if right_child(node) != nil:
-    return fn_bst_search(right_child(node), value)
-  return False
-
-
-def fn_bst_delete(node, value):
-  if valueof(node) < value:
-    return set_left_child(node, fn_bst_delete(left_child(node), value))
-  if valueof(node) > value:
-    return set_right_child(node, fn_bst_delete(right_child(node), value))
-  if left_child(node) == nil and right_child(node) == nil:
-    return nil
-  if left_child(node) == nil:
-    return right_child(node)
-  if right_child(node) == nil:
-    return left_child(node)
-  return set_left_child(
-    set_value(node, valueof(left_child(node))),
-    fn_bst_delete(set_value(left_child(node), value), value))
-
-
-def fn_print_inorder(node):
-  if node == nil:
-    return
-  fn_print_inorder(left_child(node))
-  print valueof(node)
-  fn_print_inorder(right_child(node))
-
-
-def fn_bst_invert(node):
-  if node == nil:
-    return nil
-  return set_left_child(
-    set_right_child(
-      node,
-      fn_bst_invert(left_child(node))),
-    fn_bst_invert(right_child(node)))
-
-
-"""
-Imperative BST
+BST
 
 Imperative implemtation of a BST
 with an insertion test and keeps
@@ -169,7 +67,7 @@ def bst_delete(node, value):
     return node
   if value < node.value:
     node.size -= 1
-    node.left = bst_delete(node.left, value)
+    bst_delete(node.left, value)
     return node
   if value > node.value and node.right is None:
     return node
@@ -183,10 +81,17 @@ def bst_delete(node, value):
     return node.right
   if node.right is None:
     return node.left
-  node.value = node.left.value
-  node.left.value = value
   node.size -= 1
-  node.left = bst_delete(node.left, value)
+  tmp = node.left
+  prev = node
+  while tmp.right is not None:
+    prev = tmp
+    tmp = tmp.right
+  node.value = tmp.value
+  if prev == node:
+    prev.left = bst_delete(tmp, value)
+  else:
+    prev.right = bst_delete(tmp, value)
   return node
 
 
