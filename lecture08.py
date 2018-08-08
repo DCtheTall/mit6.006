@@ -64,7 +64,7 @@ class HashTable:
 
   def _insert(self, hash_value, value):
     """
-    Insert a given value with its ha
+    Insert a given value with its hash
 
     """
     if self.cache[hash_value] is None:
@@ -137,11 +137,11 @@ class MultHashTable(HashTable):
     HashTable.__init__(self, size, self.mult_hash)
     self.lg_size = 0
     while size > 1:
-      size = size >> 1
+      size >>= 1
       self.lg_size += 1
     self.mult_constant = randint(
       (1 << (self.lg_size - 1)) + 1,
-      (1 << self.lg_size) - 1
+      (1 << self.lg_size) - 1,
     )
 
   def mult_hash(self, value):

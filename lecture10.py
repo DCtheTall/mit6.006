@@ -5,7 +5,7 @@ Probing and cryptographic hashing
 """
 
 from random import randint
-from lecture8 import get_larger_prime
+from lecture08 import get_larger_prime
 
 
 class ProbingHashTable:
