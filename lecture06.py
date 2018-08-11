@@ -20,17 +20,31 @@ def get_node_height(node):
 
 
 def rotate_left(node):
+  """
+  Rotate a tree to the left
+
+  """
   tmp = node.right
+  tmp.left, node.right = node, tmp.left
   tmp.parent = node.parent
-  node.right = tmp.left
-  tmp.left = node
+  node.parent = tmp
+  if node.right:
+    node.right.parent = node
+  return tmp
 
 
 def rotate_right(node):
+  """
+  Rotate the tree to the right
+
+  """
   tmp = node.left
+  tmp.right, node.left = node, tmp.right
   tmp.parent = node.parent
-  node.left = tmp.right
-  tmp.right = node
+  node.parent = tmp
+  if node.left:
+    node.left.parent = node
+  return tmp
 
 
 def avl_test(node):
