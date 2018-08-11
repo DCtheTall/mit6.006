@@ -11,7 +11,7 @@ has its lectures available for free on [YouTube](https://www.youtube.com/playlis
 - Insertion sort
 - Merge sort*
 - Heap sort
-- Binary search tree*
+- Binary search tree
 - AVL tree*
 - Counting sort
 - Radix sort
