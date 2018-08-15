@@ -109,6 +109,12 @@ def rotate_right(node):
 
 
 def rotate_if_inner_child(node):
+  """
+  Rotate the tree at node.parent
+  if node is the right child of a
+  left child or the left child of a right child
+
+  """
   grandparent = node.grandparent()
   if grandparent.left.right == node:
     rotate_left(node.parent)
@@ -124,7 +130,8 @@ def red_black_insert_repair(node):
   Restores the balancing properites of a
   red-black tree after insert
 
-  node: Node painted red
+  node: newly inserted Node painted red
+
   """
   if node.parent is None:
     node.color = False
@@ -163,163 +170,116 @@ def red_black_insert(parent, child):
   red_black_insert_repair(child)
 
 
-# def replace_node(node, child):
-#   """
-#   Replace a node with one of its children
+def rebalance_tree_after_delete(node):
+  """
+  Handles deleting a black node with only leaf
+  children from a red-black tree
 
-#   """
-#   child.parent = node.parent
-#   if node.parent is None:
-#     return
-#   elif node == node.parent.left:
-#     node.parent.left = child
-#   else:
-#     node.parent.right = child
+  The argument is the node that was deleted,
+  its parents subtree needs rebalancing
 
-
-# def delete_case1(node):
-#   """
-#   If the node is not the root,
-#   continue to case 2
-
-#   """
-#   if node.parent is None: # if the node is the root, we're done
-#     return
-#   delete_case2(node)
-
-
-# def delete_case2(node):
-#   """
-#   If the node's sibling is red,
-#   repaint the parent red and
-#   repaint the sibling black
-
-#   Then rotate the tree so that
-#   the sibling is now the root
-#   of the subtree to rebalance it
-
-#   """
-#   sibling = node.get_sibling()
-#   if sibling.color: # if the sibling is red
-#     node.parent.color = True # repaint the parent red
-#     sibling.color = False # repaint the sibling black
-#   if node == node.parent.left:
-#     rotate_left(node.parent)
-#   else:
-#     rotate_right(node.parent)
-#   delete_case3(node)
+  """
+  if node.parent is None:
+    # Root node case
+    return
+  parent = node.parent # label this P
+  sibling = node.sibling() # label this S
+  if sibling.color:
+    # In the case that the S is red,
+    # repaint S black and P red
+    # then rotate the tree so that
+    # S is where the P used to be
+    sibling.color = False
+    parent.color = True
+    if sibling == parent.left:
+      rotate_right(parent)
+    else:
+      rotate_left(parent)
+    sibling = node.sibling() # relabel the node's new sibling as S
+  if not parent.color \
+    and (sibling.left is None or not sibling.left.color) \
+    and (sibling.right is None or not sibling.right.color):
+      # The case when the P, S (red case for S above), and S's children are black
+      sibling.color = True
+      rebalance_tree_after_delete(parent)
+      # After this, both of the P's subtrees have
+      # 1 less black node, and the tree needs to be rebalanced
+      # at the parent node
+  elif (sibling.left is None or not sibling.left.color) \
+    and (sibling.right is None or not sibling.right.color):
+      # The case when P is red, but S and its children are black (red case for S above)
+      sibling.color = True
+      parent.color = False
+      return
+  # TODO delete cases 5-6
 
 
-# def delete_case3(node):
-#   """
-#   If the newly replaced node, its parent,
-#   the sibling and the sibling's children
-#   are all black, this means that the deleted
-#   node was also black
 
-#   So in this calse, we recolor the sibling
-#   red to correct the imbalance of black
-#   heights, then since all paths going through
-#   the parent now have 1 less black node,
-#   we rebalance the tree at the parent node
+def replace_node(node, child):
+  """
+  Replace a node with one of its children
 
-#   """
-#   sibling = node.get_sibling()
-#   if node.color \
-#     or sibling.color \
-#     or sibling.left.color \
-#     or sibling.right.color:
-#       delete_case4(node)
-#   else:
-#     sibling.color = True
-#     delete_case1(node.parent)
+  """
+  child.parent = node.parent
+  if node.parent is None:
+    return
+  elif node == node.parent.left:
+    node.parent.left = child
+  else:
+    node.parent.right = child
 
 
-# def delete_case4(node):
-#   """
-#   If the node's parent is red,
-#   and the sibling and its children
-#   are black, repaint the sibling red
-#   and the new node's parent black
+def delete_node_with_at_most_one_child(node):
+  """
+  Delete a node with at most 1 child
 
-#   """
-#   sibling = node.get_sibling()
-#   if node.parent.color \
-#     and not sibling.color \
-#     and not sibling.left.color \
-#     and not sibling.right.color:
-#       sibling.color = True
-#       node.parent.color = False
-#   return delete_case5(node)
-
-
-# def delete_case5(node):
-#   """
-#   Review later
-
-#   """
-#   sibling = node.get_sibling()
-#   if not sibling.color:
-#     if node == node.parent.left \
-#       and not sibling.right.color \
-#       and sibling.left.color:
-#         sibling.color = False
-#         sibling.left.color = True
-#         rotate_right(sibling)
-#     elif node == node.parent.right \
-#       and not sibling.left.color \
-#       and sibling.right.color:
-#         sibling.color = False
-#         sibling.right.color = True
-#         rotate_left(sibling)
-#   delete_case6(node)
+  """
+  if node.color:
+    # Case when the node being deleted is red
+    # This can only happen if the node has two leaf children (None),
+    # otherwise the tree would be imbalanced
+    if node == node.parent.left:
+      node.parent.left = None
+    else:
+      node.parent.right = None
+    return
+  child = node.left if node.right is None else node.right
+  if child is None:
+    # If the child does not exist and the node is black (see above for red node case)
+    # then it must only have leaf children and must be dealt with separately
+    # the sibling cannot be a leaf since the
+    # subtree of the parent with node has a black
+    # height of two, so if the sibling is a leaf
+    # the parent would be imbalanced
+    rebalance_tree_after_delete(node)
+    if node.parent:
+      if node == node.parent.left:
+        node.parent.left = None
+      else:
+        node.parent.right = None
+    return
+  # If the child exists, it must be red with only leaf children
+  # or else the tree would be imbalanced. In this case just
+  # replace the node with its child and repaint the child black
+  replace_node(node, child)
+  child.color = False
 
 
-# def delete_case6(node):
-#   """
-#   Review later
+def red_black_delete(node, v):
+  """
+  Delete a value from a Red-Black tree
 
-#   """
-#   sibling = node.get_sibling()
-#   sibling.color = node.parent.color
-#   node.parent.color = False
-#   if node == node.parent.left:
-#     sibling.right.color = False
-#     rotate_left(node.parent)
-#   else:
-#     sibling.left.color = False
-#     rotate_right(node.parent)
-
-
-# def delete_node_with_one_child(node):
-#   """
-#   Delete a node with at most 1 child
-
-#   """
-#   child = node.left if node.right is None else node.right
-#   if child is None: # leaf node case
-#     delete_case1(node)
-#   replace_node(node, child) # replace the node with its child
-#   if not node.color: # if the node was red (True), we are done
-#     # the child must be red or else the tree was imbalanced
-#     child.color = False  # so repaint it black
-
-
-# def red_black_delete(node, v):
-#   """
-#   Delete from a Red-Black tree
-
-#   """
-#   if v < node.value:
-#     red_black_delete(node.left, v)
-#   elif v > node.value:
-#     red_black_delete(node.right, v)
-#   else:
-#     if node.left and node.right:
-#       tmp = node.left
-#       while tmp.right is not None:
-#         tmp = tmp.right
-#       node.value = tmp.value
-#       delete_node_with_one_child(tmp)
-#     else:
-#       delete_node_with_one_child(node)
+  """
+  if v < node.value:
+    red_black_delete(node.left, v)
+  elif v > node.value:
+    red_black_delete(node.right, v)
+  else:
+    if node.left and node.right:
+      tmp = node.left
+      while tmp.right is not None:
+        tmp = tmp.right
+      node.value = tmp.value
+      delete_node_with_at_most_one_child(tmp)
+    else:
+      delete_node_with_at_most_one_child(node)
