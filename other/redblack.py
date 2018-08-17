@@ -184,6 +184,8 @@ def rebalance_tree_after_delete(node):
     return
   parent = node.parent # label this P
   sibling = node.sibling() # label this S
+  # S cannot be black or else the tree would
+  # have been imbalanced since the node is black
   if sibling.color:
     # In the case that the S is red,
     # repaint S black and P red
@@ -211,7 +213,29 @@ def rebalance_tree_after_delete(node):
       sibling.color = True
       parent.color = False
       return
-  # TODO delete cases 5-6
+  # Review these last 2 cases
+  if node == node.parent.left \
+    and (sibling.right is None or not sibling.right.color) \
+    and sibling.left.color: # this last test is trivial due to the cases above
+      sibling.color = True
+      sibling.left.color = False
+      rotate_right(sibling)
+  elif node == node.parent.right \
+    and (sibling.left is None or not sibling.left.color) \
+    and sibling.right.color:
+      sibling.color = True
+      sibling.right.color = False
+      rotate_left(sibling)
+  sibling = node.sibling()
+  sibling.color = node.parent.color
+  node.parent.color = False
+  if node == node.parent.left:
+    sibling.right.color = False
+    rotate_left(node.parent)
+  if node == node.parent.right:
+    sibling.left.color = False
+    rotate_right(node.parent)
+
 
 
 
