@@ -30,10 +30,12 @@ class RollingHash:
     self.hash = 0
     self.size = 0
     self.base = get_larger_prime(min_size)
+
   def append(self, c):
     self.hash *= 256
     self.hash += ord(c) % self.base
     self.size += 1
+
   def pop_left(self):
     self.size -= 1
     self.hash %= 256 ** self.size

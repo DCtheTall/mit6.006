@@ -26,6 +26,10 @@ class ProbingHashTable:
   def _univ_hash(self, value):
     """
     Universal hash function
+    h(k) = (((a * k) + b) % p) % size
+
+    where p is a prime number at least twice as large as the size
+    a, b are random integers between 0 and p - 1
 
     """
     hash_value = (self.univ_a * hash(value)) + self.univ_b
@@ -36,6 +40,7 @@ class ProbingHashTable:
   def _get_hash(self, attempt, value):
     """
     Double hashing implmentation
+    h(val, i) = (h(val) + (((2 * h(val)) + 1) * attempted)) mod size
 
     """
     return (self._univ_hash(value) \
@@ -85,7 +90,3 @@ class ProbingHashTable:
         attempt += 1
         hash_value = self._get_hash(attempt, value)
     return self.cache[hash_value] is not None
-
-
-
-

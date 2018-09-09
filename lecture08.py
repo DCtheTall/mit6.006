@@ -35,7 +35,7 @@ def get_larger_prime(n):
   Not guaranteed to be the next prime
 
   """
-  result = n + 2 if n % 2 else n + 1
+  result = n + (1 if n % 2 == 0 else 2)
   while not is_prime(result):
     result += 2
   return result
@@ -48,7 +48,7 @@ class Node:
   """
   def __init__(self, value):
     self.value = value
-    self.next = None # should be set to a
+    self.next = None # should be set to another Node
 
 
 class HashTable:
