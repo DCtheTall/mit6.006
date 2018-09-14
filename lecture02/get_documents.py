@@ -12,6 +12,7 @@ def get_article_w_prompt(prompt):
 
   Returns the content of the article as a list of strings
   separated by line
+
   """
   query = raw_input(prompt)
   url = 'https://en.wikipedia.org' \

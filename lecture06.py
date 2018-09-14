@@ -16,7 +16,9 @@ def get_node_height(node):
     return 0
   if not node.left and not node.right:
     return 1
-  return 1 + max(get_node_height(node.left), get_node_height(node.right))
+  return 1 + max(
+    get_node_height(node.left),
+    get_node_height(node.right))
 
 
 def rotate_left(node):
