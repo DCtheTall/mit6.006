@@ -11,6 +11,9 @@ in the lecture
 """
 
 
+from collections import deque
+
+
 def add_graph_node(adjacency_list, val):
   """
   Add a node to a graph, adjacency_list
@@ -67,8 +70,8 @@ def graph_bfs(s, adjacency_list):
     and e is the number of edges
 
   """
-  levels = { s: 0 }
-  parents = { s: None }
+  levels = {s: 0}
+  parents = {s: None}
   i = 1
   frontier = [s]
   while frontier:
@@ -81,5 +84,30 @@ def graph_bfs(s, adjacency_list):
           next_frontier.append(v)
     frontier = next_frontier
     i += 1
+  return (levels, parents)
+
+
+def deque_bfs(s, adjacency_list):
+  """
+  Higher performance BFS using the
+  deque object from the collections
+  library
+
+  Complexity: O(v + e)
+
+  """
+  levels = dict()
+  parents = dict()
+  queue = deque()
+  queue.append((0, None, s))
+  while len(queue) > 0:
+    level, parent, u = queue.popleft()
+    if u in levels:
+      continue
+    else:
+      levels[u] = level
+      parents[u] = parent
+    for v in adjacency_list[u]:
+      queue.append((level + 1, u, v))
   return (levels, parents)
 

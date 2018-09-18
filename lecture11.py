@@ -29,7 +29,7 @@ def catalan(n):
   """
   Calculate the n^th (starting w 0) Catalan number
 
-  Also can be written as C_n+1 = SUM_i=0^n C_i * C_n-i
+  Also can be written as C_n+1 = SUM C_i * C_n-i FROM i = 0 to n
 
   """
   return choose(2 * n, n) / (n + 1)

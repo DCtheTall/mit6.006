@@ -30,10 +30,11 @@ def get_optimal_knapsack_value(W, items):
       if i == n:
         knapsacks[(i, j)] = 0
         continue
-      weight, value = items[i]
       if j == 0:
         knapsacks[(i, j)] = 0
-      elif weight <= j:
+        continue
+      weight, value = items[i]
+      if weight <= j:
         knapsacks[(i, j)] = max(
           knapsacks[(i + 1, j)],
           knapsacks[(i + 1, j - weight)] + value

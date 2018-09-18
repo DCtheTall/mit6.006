@@ -85,7 +85,7 @@ def bst_delete(node, value):
 def print_inorder(node):
   if node.left is not None:
     print_inorder(node.left)
-  print 'value: %2d  size: %2d' % (node.value, node.size)
+  print 'value: %2d ' % node.value
   if node.right is not None:
     print_inorder(node.right)
 

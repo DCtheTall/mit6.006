@@ -13,13 +13,13 @@ class ProbingHashTable:
   A probing hash table which uses double
   hashing to prevent clustering
 
-  Creates a table of size 2^size
+  Creates a table of size 2^n
 
   """
-  def __init__(self, size):
-    self.size = 1 << size
-    self.cache = [None for _ in range(size)]
-    self.large_prime = get_larger_prime(1 << size)
+  def __init__(self, n):
+    self.size = 1 << n
+    self.cache = [None for _ in range(self.size)]
+    self.large_prime = get_larger_prime(self.size)
     self.univ_a = randint(0, self.large_prime - 1)
     self.univ_b = randint(0, self.large_prime - 1)
 

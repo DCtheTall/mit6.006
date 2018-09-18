@@ -7,6 +7,9 @@ and topological sort
 """
 
 
+from collections import deque
+
+
 def dfs_visit(parents, adjacency_list, s):
   """
   Recursive depth first search for
@@ -34,6 +37,7 @@ def dfs(adjacency_list):
     if u not in parents:
       parents[u] = None
       dfs_visit(parents, adjacency_list, u)
+  return parents
 
 
 """
@@ -142,3 +146,24 @@ def topological_sort(adjacency_list):
       )
   sorted_list.reverse()
   return sorted_list
+
+
+def stack_dfs(adjacency_list, s):
+  """
+  DFS using a stack instead of
+  recursion
+
+  Complexity: O(v + e)
+
+  """
+  parents = dict()
+  stack = deque()
+  stack.append((None, s))
+  while len(stack) > 0:
+    parent, u = stack.pop()
+    if u in parents:
+      continue
+    parents[u] = parent
+    for v in adjacency_list[u]:
+      stack.append((u, v))
+  return parents
