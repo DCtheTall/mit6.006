@@ -1,16 +1,3 @@
-"""
-BST
-
-Imperative implemtation of a BST
-with an insertion test and keeps
-track of size.
-
-In this case elements must differ by
-at least 3
-
-"""
-
-
 class Node:
   def __init__(self, value):
     self.value = value
@@ -19,19 +6,19 @@ class Node:
     self.parent = None
 
 
-def bst_insert(node, value):
-  if node.value == value:
+def bst_insert(root, value):
+  if root.value == value:
     return
-  if value < node.value:
-    if node.left:
-      bst_insert(node.left, value)
+  if value < root.value:
+    if root.left:
+      bst_insert(root.left, value)
     else:
-      node.left = Node(value)
-      node.left.parent = node
-  if node.right is None:
-    node.right = Node(value)
-    node.right.parent = node
-  bst_insert(node.right, value)
+      root.left = Node(value)
+      root.left.parent = root
+  if root.right is None:
+    root.right = Node(value)
+    root.right.parent = root
+  bst_insert(root.right, value)
 
 
 def bst_insert_list(arr):
@@ -41,14 +28,14 @@ def bst_insert_list(arr):
   return node
 
 
-def bst_search(node, value):
-  if node.value == value:
+def bst_search(root, value):
+  if root.value == value:
     return True
-  if node.value > value:
-    return False if node.left is None \
-      else bst_search(node.left, value)
-  return False if node.right is None \
-    else bst_search(node.right, value)
+  if root.value > value:
+    return False if root.left is None \
+        else bst_search(root.left, value)
+  return False if root.right is None \
+      else bst_search(root.right, value)
 
 
 def bst_delete(node, value):
@@ -58,8 +45,8 @@ def bst_delete(node, value):
     bst_delete(node.right, value)
   elif value == node.value:
     if node.left is None \
-      and node.right is None \
-      and node.parent is not None:
+            and node.right is None \
+            and node.parent is not None:
         if node == node.parent.left:
           node.parent.left = None
         else:
@@ -74,7 +61,7 @@ def bst_delete(node, value):
         node.parent.left = node.left
       else:
         node.parent.right = node.left
-    else:
+    elif node.parent:
       tmp = node.left
       while tmp.right is not None:
         tmp = tmp.right
@@ -82,12 +69,12 @@ def bst_delete(node, value):
       bst_delete(tmp, tmp.value)
 
 
-def print_inorder(node):
-  if node.left is not None:
-    print_inorder(node.left)
-  print 'value: %2d ' % node.value
-  if node.right is not None:
-    print_inorder(node.right)
+def print_inorder(root):
+  if root.left is not None:
+    print_inorder(root.left)
+  print 'value: %2d ' % root.value
+  if root.right is not None:
+    print_inorder(root.right)
 
 
 def bst_invert(node):

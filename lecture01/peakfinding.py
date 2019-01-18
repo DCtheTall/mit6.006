@@ -1,6 +1,10 @@
 """
+Lecture 1:
 Peak finding (1D and 2D)
 ------------------------
+This program contains an O(log(N)) algorithm for finding a peak,
+i.e. an element that is greater than or equal to its neighbors,
+in an array of comparable types.
 
 """
 

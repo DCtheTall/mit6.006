@@ -1,6 +1,6 @@
 """
-Imperative AVL Tree
-
+Lecture 6: AVL Tree
+-------------------
 Self balancing binary search tree
 that builds off the work I did
 on BSTs for lecture 5
@@ -8,17 +8,21 @@ on BSTs for lecture 5
 """
 
 
-from lecture05 import Node, bst_insert, bst_delete, print_inorder
+from bst import Node, bst_insert, bst_delete, print_inorder
 
 
 def get_node_height(node):
+  """
+  Get the height of a node.
+
+  """
   if node is None:
     return 0
   if not node.left and not node.right:
     return 1
   return 1 + max(
-    get_node_height(node.left),
-    get_node_height(node.right))
+      get_node_height(node.left),
+      get_node_height(node.right))
 
 
 def rotate_left(node):
@@ -50,10 +54,23 @@ def rotate_right(node):
 
 
 def avl_test(node):
-  return abs(get_node_height(node.left) - get_node_height(node.right)) <= 1
+  """
+  Test the AVL invariant of the tree,
+  no node's subtrees' heights can differ
+  by more than 1.
+
+  """
+  return 1 >= \
+    abs(get_node_height(node.left) \
+      - get_node_height(node.right))
 
 
 def avl_balance(node):
+  """
+  Balance an AVL tree using tree
+  rotation.
+
+  """
   if not node:
     return None
   avl_balance(node.left)
@@ -66,18 +83,31 @@ def avl_balance(node):
 
 
 def avl_insert(node, value):
+  """
+  Insert into an AVL tree.
+
+  """
   bst_insert(node, value)
   avl_balance(node)
   return node
 
 
 def avl_delete(node, value):
+  """
+  Delete from an AVL tree.
+
+  """
   bst_delete(node, value)
   avl_balance(node)
   return node
 
 
 def avl_insert_list(arr):
+  """
+  Convert a list into a balanced binary
+  search tree.
+
+  """
   node = Node(arr[0])
   for i in range(1, len(arr)):
     node = avl_insert(node, arr[i])

@@ -1,8 +1,22 @@
+"""
+Lecture 2:
+Document Distance
+-----------------
+This third program sorts the frequency map vectors so
+that taking the inner product more efficient.
+
+"""
+
+
 from get_documents import get_documents
 import math
 
 
 def get_words_from_string(line):
+  """
+  Split a string into a list of words.
+
+  """
   word_list = []
   char_list = []
   for c in line:
@@ -19,6 +33,11 @@ def get_words_from_string(line):
 
 
 def get_words_from_line_list(L):
+  """
+  Transform the lines in the document, a list
+  of strings, into a list of words.
+
+  """
   word_list = []
   for line in L:
     words_in_line = get_words_from_string(line)
@@ -27,6 +46,12 @@ def get_words_from_line_list(L):
 
 
 def count_frequency(word_list):
+  """
+  Count the frequency of each word in the list
+  by scanning the list of already encountered
+  words.
+
+  """
   L = []
   for new_word in word_list:
     for entry in L:
@@ -38,7 +63,12 @@ def count_frequency(word_list):
   return L
 
 
-def insertion_sort(L):  # This insertion sort is added
+def insertion_sort(L):
+  """
+  Insertion sort, a list sorting
+  algorithm.
+
+  """
   for i in range(len(L)):
     key = L[i]
     j = i - 1
@@ -50,13 +80,22 @@ def insertion_sort(L):  # This insertion sort is added
 
 
 def word_frequencies_for_file(line_list):
+  """
+  Transform the document into a frequency map
+  for each term.
+
+  """
   word_list = get_words_from_line_list(line_list)
   freq_map = count_frequency(word_list)
   insertion_sort(freq_map)  # the frequency map is now sorted
   return freq_map
 
 
-def inner_product(L1, L2): # refactored to assume L1 and L2 are sorted
+def inner_product(L1, L2):
+  """
+  Take the inner product of the frequency maps.
+
+  """
   result = 0.
   i = 0
   j = 0
@@ -73,17 +112,22 @@ def inner_product(L1, L2): # refactored to assume L1 and L2 are sorted
 
 
 def vector_angle(L1, L2):
+  """
+  Compute the angle between two frequency vectors.
+
+  """
   numerator = inner_product(L1, L2)
   denominator = math.sqrt(inner_product(L1, L1) * inner_product(L2, L2))
   return math.acos(numerator / denominator)
 
 
 def main():
-  (doc1, doc2) = get_documents()
+  """
+  Compute the document distance.
+
+  """
+  doc1, doc2 = get_documents()
   freq_map1 = word_frequencies_for_file(doc1)
   freq_map2 = word_frequencies_for_file(doc2)
   distance = vector_angle(freq_map1, freq_map2)
   print 'The distance between the documents is %0.6f (radians)' % distance
-
-
-main()

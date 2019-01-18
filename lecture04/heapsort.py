@@ -1,6 +1,8 @@
 """
-Heaps
------
+Lecture 4: Heaps and Heapsort
+-----------------------------
+This program contains an implementation
+of heapify and heapsort algorithms.
 
 """
 
@@ -43,7 +45,7 @@ def build_max_heap(arr):
   return arr
 
 
-def heap_sort(arr):
+def heapsort(arr):
   """
   Heap sort a list arr
 
