@@ -1,11 +1,48 @@
 """
-Probing and cryptographic hashing
----------------------------------
+Lecture 10: Probing
+and Cryptographic Hashing
+-------------------------
+This program contains an implementation of a
+has table which uses probing to handle
+collisions.
 
 """
 
 from random import randint
-from lecture08 import get_larger_prime
+
+
+def is_prime(n):
+  """
+  Miller-Rabin primality test
+  for n < 2 ** 64
+
+  """
+  test_vals = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+  if n in test_vals:
+    return True
+  d = n - 1
+  s = 0
+  while not d & 1:
+    d = d >> 1
+    s += 1
+  for a in test_vals:
+    for r in range(0, s):
+      if (a ** (d * (1 << r))) % n != (n - 1) \
+              and (a ** d) % n != 1:
+          return False
+  return True
+
+
+def get_larger_prime(n):
+  """
+  Get a prime number larger than n
+  Not guaranteed to be the next prime
+
+  """
+  result = n + (1 if n % 2 == 0 else 2)
+  while not is_prime(result):
+    result += 2
+  return result
 
 
 class ProbingHashTable:

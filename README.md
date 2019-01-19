@@ -1,87 +1,35 @@
-# MIT 6.006 Algorithms
+# Implementations of Algorithms Covered in MIT 6.006
 
-This repository contains my own implentations
-of algorithms covered in MIT 6.006 which
-has its lectures available for free on [YouTube](https://www.youtube.com/playlist?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
+by Dylan Cutler (DCtheTall)
 
-### Algorithms covered in the course
+## Topics Covered
 
-- 1-D and 2-D Peak Finding
-- Document distance with optimizations
-- Insertion sort
-- Merge sort*
-- Heap sort
-- Binary search tree
-- AVL tree*
-- Counting sort
-- Radix sort
-- Hash tables with chaining
-- Rolling hash tables
-- Hash table with probing
-- Karatsuba multiplication
-- Breadth-first search
-- Depth-first search
-- Topological sort
-- Dijkstra's shortest path algorithm
-- Bellman-Ford shortest path algorithm
-- Single target, bi-directional, and goal-directed Dijkstra's
-
-### Algorithms in this repo not covered in the course
-
-- QuickSort
-- A* search
-- Iterated-Depth Depth First Search (IDDFS)
-
-*: Includes imperative and pure functional implementations
-
----
-
-It also uses includes implementations of using dynamic programming for:
-
-- Efficiently calculating Fibonacci sequence terms
-- Text justification
-- Playing the best round of Black Jack if you know the deck
-- Minimum edit distance between two strings
-- Knapsack problem
-- Finding the optimal order to multiply matrices
-
-
-### Algorithms by Lecture:
-
-**Lecture 1:** 1D and 2D peak finding
-
-**Lecture 2:** Document distance
-
-**Lecture 3:** Insertion sort and merge sort
-
-**Lecture 4:** Heaps and max-heap sort
-
-**Lecture 5:** Binary search tree
-
-**Lecture 6:** AVL tree
-
-**Lecture 7:** Counting sort and radix sort
-
-**Lecture 8:** Hash tables
-
-**Lecture 9:** String search using rolling hashes
-
-**Lecture 10:** Probing and cryptographic hashing
-
-**Lecture 11:** Karatsuba multiplication
-
-**Lecture 13:** Breadth-first search
-
-**Lecture 14:** Depth-first search
-
-**Lecture 16:** Dijkstra's shortest path algorithm
-
-**Lecture 17:** Bellman-Ford's shortest path algorithm
-
-**Lecture 18:** Single target, goal-directed, and bi-directional Dijkstra
-
-**Lecture 19:** Dynamic programming Fibonacci terms
-
-**Lecture 20:** Perfect information blackjack, text justification
-
-**Lecture 21:** Shortest edit distance, knapsack problem, optimal matrix multiplication
+- 1D and 2D Peak Finding ([lecture 1](#lecture-1))
+- Document Distance ([lecture 2](#lecture-2))
+- Insertion Sort ([lecture 2](#lecture-2))
+- Mergesort ([lecture 3](#lecture-3))
+- Max Heaps ([lecture 4](#lecture-4))
+- Heapsort ([lecture 4](#lecture-4))
+- Binary Search Trees ([lecture 5](#lecture-5))
+- AVL Trees ([lecture 6](#lecture-6))
+- Counting Sort ([lecture 7](#lecture-7))
+- Radix Sort ([lecture 7](#lecture-7))
+- Hash Table with Chaining ([lecture 8](#lecture-8))
+- Rolling Hashes ([lecture 9](#lecture-9))
+- Karp-Rabin Text Search ([lecture 9](#lecture-9))
+- Hash Table with Probing ([lecture 10](#lecture-10))
+- Catalan Numbers ([lecture 11](#lecture-11))
+- Karatsuba Multiplication ([lecture 11](#lecture-11))
+- Breadth-First Search ([lecture 13](#lecture-13))
+- Depth-First Search ([lecture 14](#lecture-14))
+- Graph Cycle Detection ([lecture 14](#lecture-14))
+- Topological Sort ([lecture 14](#lecture-14))
+- Shortest Path Algorithm for a Directed Acyclic Graph ([lecture 16](#lecture-16))
+- Dijkstra's Shortest Path Algorithm ([lecture 16](#lecture-16))
+- Bellman-Ford Shortest Path Algorithm ([lecture 17](#lecture-17))
+- Single Target Dijkstra's Algorithm ([lecture 18](#lecture-18))
+- Bi-Directional Dijkstra's Algorithm ([lecture 18](#lecture-18))
+- Goal Directed Dijkstra's Algorithm ([lecture 18](#lecture-18))
+- Fibonacci Numbers ([lecture 19](#lecture-19))
+- Memoization ([lecture 19](#lecture-19))
+- Dynamic Programming ([lecture 19](#lecture-19), [lecture 20](#lecture-20), [lecture 21](#lecture-21))

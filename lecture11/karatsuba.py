@@ -1,47 +1,20 @@
 """
-Catalan number formula
-Karatsuba multiplication
-------------------------
-
-This lecture series is the first in their module
-on numerics algorithms
+Lecture 11: Karatsuba Multiplication
+------------------------------------
+This program contains an implementation of
+Karatsuba multiplication, an efficient
+divide-and-conquer algorithm for high
+precision multiplication.
 
 """
-
-
-def factorial(n):
-  """
-  Compute n factorial (n!)
-
-  """
-  return 1 if n <= 1 else n * factorial(n - 1)
-
-
-def choose(n, m):
-  """
-  n Choose m
-
-  """
-  return factorial(n) / factorial(n - m) / factorial(m)
-
-
-def catalan(n):
-  """
-  Calculate the n^th (starting w 0) Catalan number
-
-  Also can be written as C_n+1 = SUM C_i * C_n-i FROM i = 0 to n
-
-  """
-  return choose(2 * n, n) / (n + 1)
 
 
 def karatsuba_multiply(a, b, precision=50, radix=10):
   """
   Karatsuba multiplication for integers
-
   Generalized for integers 0 <= a, b <= radix ** precision
-
-  Complexity: O(n ^ log_2(3)) where n is the precision of multiplication desired
+  Complexity: O(n ^ log_2(3)) where n is the precision of
+  multiplication desired.
 
   """
   precision_on_2 = precision >> 1

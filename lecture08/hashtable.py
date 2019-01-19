@@ -1,6 +1,9 @@
 """
 Lecture 8: Hashing
 ------------------
+This program contains an implementation
+of a hash table which uses chaining to
+handle collisions.
 
 """
 

@@ -1,9 +1,12 @@
 """
-Dynamic Programming II:
-=======================
-
+Lecture 20: Dynamic Programming
 Perfect information Black Jack
 ------------------------------
+This program contains an implementation of an
+algorithm to find the "perfect" game of blackjack,
+i.e. the game where the player makes as much money
+as possible, given that they know the exact order
+of the deck.
 
 """
 
@@ -152,7 +155,7 @@ def perfect_blackjack(deck):
   for i in range(51, -1, -1):
     scores = {}
     for hits in range(0, 52 - i):
-      (cards_played, game_score) = round_outcome(deck, i, hits)
+      cards_played, game_score = round_outcome(deck, i, hits)
       if best_scores[i + cards_played] != -float('inf'):
         game_score += best_scores[i + cards_played]
       if game_score not in scores:

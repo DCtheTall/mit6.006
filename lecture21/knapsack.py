@@ -1,14 +1,14 @@
 """
 Dynamic Programing III:
-=======================
-
-3. Knapsack Problem
--------------------
+The Knapsack Problem
+--------------------
+This program contains an algorithm which solves the
+knapsack problem. The prodlem is defined as:
 
 You have a knapsack with a maximum capacity (capacity)
-that you can put in items with weight (int)
-and values (number), what is the maximum
-value you can put in the knapsack given that
+that you can put in items, each with an associated
+weight (int) and value (number). What is the maximum
+value you can put in the knapsack given the constraint:
 
 sum(weights of items in knapsack) <= capacity
 
@@ -24,7 +24,7 @@ def get_optimal_knapsack_value(W, items):
 
   """
   n = len(items)
-  knapsacks = {}
+  knapsacks = dict()
   for i in range(n, -1, -1):
     for j in range(W + 1):
       if i == n:
@@ -37,8 +37,7 @@ def get_optimal_knapsack_value(W, items):
       if weight <= j:
         knapsacks[(i, j)] = max(
           knapsacks[(i + 1, j)],
-          knapsacks[(i + 1, j - weight)] + value
-        )
+          knapsacks[(i + 1, j - weight)] + value)
       else:
         knapsacks[(i, j)] = knapsacks[(i + 1, j)]
   return knapsacks[(0, W)]

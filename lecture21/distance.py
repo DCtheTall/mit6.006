@@ -1,11 +1,9 @@
 """
-Dynamic Programing III:
-=======================
-
-2. Edit Distance
-----------------
-
-Find the optimal way to change a string: str1
+Lecture 21: Dynamic Programing
+Edit Distance
+-------------
+This program contains an algorithm which
+finds the optimal way to change a string: str1
 to be equal to a second string: str2
 with the lowest cost.
 

@@ -1,6 +1,6 @@
 """
-Breadth First Search
---------------------
+Lecture 13: Breadth First Search
+--------------------------------
 An implementation of BFS on the
 binary search tree implemented in
 lecture 5

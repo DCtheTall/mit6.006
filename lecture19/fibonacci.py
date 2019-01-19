@@ -1,5 +1,13 @@
 """
-Dynamic programming I: Fibonacci
+Lecture 19: Dynamic programming I:
+Fibonacci
+---------
+This program contains 3 different implementations
+of computing the n^th Fibonacci number:
+
+1. An exponential time naive recursive algorithm.
+2. A memoized dynamic programming algorithm.
+3. A bottom-up dynamic programming algorithm.
 
 """
 
@@ -16,7 +24,8 @@ def naive_fibonacci(n):
   return naive_fibonacci(n - 1) + naive_fibonacci(n - 2)
 
 
-fibonacci_memo = {}
+memoization_table = dict()
+
 def memoized_fibonnaci(n):
   """
   Memoized fibonacci reduces computation
@@ -26,7 +35,7 @@ def memoized_fibonnaci(n):
   Justification:
 
   Calling fib(n) the naive way creates the
-  recursion tree:
+  recursion tree (in Lisp notation):
 
   (fib(n)
     (fib(n - 1)
@@ -43,13 +52,13 @@ def memoized_fibonnaci(n):
   recursion tree into a linked list of length n
 
   """
-  if n in fibonacci_memo:
-    return fibonacci_memo[n]
+  if n in memoization_table:
+    return memoization_table[n]
   if n == 0 or n == 1:
     return n
   else:
     f = memoized_fibonnaci(n - 1) + memoized_fibonnaci(n - 2)
-  fibonacci_memo[n] = f
+  memoization_table[n] = f
   return f
 
 
@@ -74,5 +83,5 @@ def bottom_up_fibonacci(n):
     return n
   fib = [0, 1]
   for _ in range(2, n):
-    fib[0], fib[1] = fib[1], sum(fib)
+    fib = [fib[1], sum(fib)]
   return sum(fib)

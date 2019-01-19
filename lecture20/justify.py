@@ -1,9 +1,16 @@
 """
-Dynamic Programing II:
-======================
-
+Lecture 20: Dynamic Programing
 Text justification
 ------------------
+This program contains an implementation of an
+algorithm to justify a paragraph of text in a
+way which minimizes the "badness" of the line,
+where badness is given by:
+
+if page_width - width_of_line >= 0:
+  (page_width - width_of_line) ** 3
+else:
+  infinity
 
 """
 
@@ -46,7 +53,7 @@ def justify_text(page_width, text):
       badnesses[curr_badness] = k
       k -= 1
     min_badnesses[i] = min(badnesses)
-    parents[i] = badnesses[min(badnesses)]
+    parents[i] = badnesses[min_badnesses[i]]
   curr = n
   justified_text = []
   while curr > 1:
