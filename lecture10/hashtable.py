@@ -85,7 +85,7 @@ class ProbingHashTable:
 
   def insert(self, value):
     """
-    Insert a value into the table
+    Insert a value into the table.
 
     """
     hash_value = self._get_hash(0, value)
@@ -102,7 +102,7 @@ class ProbingHashTable:
 
     To distinguish empty values from
     deleted ones, it replaces them
-    with False instead of None
+    with False instead of None.
 
     """
     hash_value = self._get_hash(0, value)
@@ -117,7 +117,7 @@ class ProbingHashTable:
 
   def search(self, value):
     """
-    Search the hash table for a particular value
+    Search the hash table for a particular value.
 
     """
     hash_value = self._get_hash(0, value)

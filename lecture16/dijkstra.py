@@ -16,16 +16,21 @@ def dijkstra(adjacency_list, weights, s):
   from s given that each edge weight
   is >= 0
 
-  Complexity: O(v * log(v) + e)
-  where v is the number of vertices in the graph
-  and e is the number of edges
+  Complexity:
+  Depends on the efficiency of the priority queue
+  you use to find the next minimum vertex. This
+  implementation is O(v ** 2 + e) but some priority
+  queues can achieve O(v * log(v) + e) time.*
+
+  *: where v is the number of vertices in the graph
+  and e is the number of edges.
 
   """
-  unfinished = {}
+  unfinished = dict()
   for u in adjacency_list:  # create a dict of all unfinished vertices cost from s
     unfinished[u] = float('inf')
   unfinished[s] = 0
-  path_costs = {}
+  path_costs = dict()
   predecessors = {s: None}
   while unfinished:
     # get the closest vertex to s (starting with s)
@@ -38,4 +43,4 @@ def dijkstra(adjacency_list, weights, s):
       if path_costs[u] + weights[(u, v)] < unfinished[v]:  # relax each path
         unfinished[v] = path_costs[u] + weights[(u, v)]
         predecessors[v] = u
-  return (path_costs, predecessors)
+  return path_costs, predecessors
