@@ -25,7 +25,7 @@ def topological_sort_dfs_visit(sorted_list, visiting, parents, adjacency_list, s
   visiting[s] = True
   for u in adjacency_list[s]:
     if u in visiting:
-      raise Exception
+      raise Exception('Backwards edge detected')
     if u in parents:
       continue
     parents[u] = s
